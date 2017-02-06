@@ -85,6 +85,10 @@ $Form1.Add_Resize({
 	#relocate all the objects
 	$pictureBox.Location = new-object System.Drawing.Point(($Form1.ClientSize.width/2 - 300/2),0)
 	$tabControl1.Size = new-object System.Drawing.Size(($Form1.ClientSize.Width -10),($Form1.ClientSize.height -80))
+	$combosearch.Location = New-Object System.Drawing.Point(($tabControl1.size.width/2 -345/2 -75),10)
+	$textboxsearch.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 -345/2),10)
+	$buttonsearch.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 +345/2),10)
+	$labelcount.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 +345/2 + 30),13)
 	$ListViewsearch.Size = New-Object System.Drawing.Size(($tabControl1.size.width -30),($tabControl1.size.height -80))
 	$columnB.Width = ($ListViewsearch.Size.width -22)
 	$buttonexport.Location = New-Object System.Drawing.Size(($tabControl1.size.width -20),($tabControl1.size.height -41))
@@ -142,7 +146,8 @@ $tabControl1.Controls.Add($tabPage3)
 #combo
 $searchoptions="All","Notes","Tags"
 $combosearch=New-Object System.Windows.Forms.ComboBox
-$combosearch.Location = New-Object System.Drawing.Point(80,10) 
+$combosearch.Location = New-Object System.Drawing.Point(($tabControl1.size.width/2 -345/2 -75),10)
+#$combosearch.Location = New-Object System.Drawing.Point(80,10)
 $combosearch.Size = New-Object System.Drawing.Size(75,20) 
 $combosearch.Font = $css_textbox.Bigfont
 $combosearch.Name = "SearchOptions"
@@ -151,7 +156,8 @@ $combosearch.text=$searchoptions[0]
 $tabPage1.Controls.Add($combosearch)
 #textbox
 $textboxsearch = New-Object System.Windows.Forms.textbox
-$textboxsearch.Location = new-object System.Drawing.Point(155,10)
+$textboxsearch.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 -345/2),10)
+#$textboxsearch.Location = new-object System.Drawing.Point(155,10)
 $textboxsearch.Size = new-object System.Drawing.Size(345,20)
 $textboxsearch.Font = $css_textbox.Bigfont
 $textboxsearch.borderstyle = 2 #0=sin borde, 1=borde 2=hundido
@@ -163,7 +169,8 @@ $textboxsearch.Add_KeyDown({
 	}
 })
 $buttonsearch = New-Object System.Windows.Forms.Button
-$buttonsearch.Location = new-object System.Drawing.Point(500,10)
+#$buttonsearch.Location = new-object System.Drawing.Point(500,10)
+$buttonsearch.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 +345/2),10)
 $buttonsearch.Size = new-object System.Drawing.Size(20,22)
 $buttonsearch.BackColor = [System.Drawing.Color]::CadetBlue
 $buttonsearch.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
@@ -180,7 +187,7 @@ $ToolTip0.InitialDelay = 500
 $ToolTip0.ReshowDelay = 500
 $ToolTip0.SetToolTip($buttonsearch, "Search!") 
 $labelcount= New-Object System.Windows.Forms.label
-$labelcount.Location = new-object System.Drawing.Point(550,13)
+$labelcount.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 +345/2 + 30),13)
 $labelcount.Size = new-object System.Drawing.Size(65,20)
 $labelcount.Font = $css_textbox.Bigfont
 $labelcount.Forecolor="silver"
