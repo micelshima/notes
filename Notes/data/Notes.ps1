@@ -87,7 +87,7 @@ $Form1.Add_Resize({
 	$tabControl1.Size = new-object System.Drawing.Size(($Form1.ClientSize.Width -10),($Form1.ClientSize.height -80))
 	$combosearch.Location = New-Object System.Drawing.Point(($tabControl1.size.width/2 -345/2 -75),10)
 	$textboxsearch.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 -345/2),10)
-	$buttonsearch.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 +345/2),10)
+	$buttonsearch.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 +345/2 +1),10)
 	$labelcount.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 +345/2 + 30),13)
 	$ListViewsearch.Size = New-Object System.Drawing.Size(($tabControl1.size.width -30),($tabControl1.size.height -80))
 	$columnB.Width = ($ListViewsearch.Size.width -22)
@@ -170,7 +170,7 @@ $textboxsearch.Add_KeyDown({
 })
 $buttonsearch = New-Object System.Windows.Forms.Button
 #$buttonsearch.Location = new-object System.Drawing.Point(500,10)
-$buttonsearch.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 +345/2),10)
+$buttonsearch.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 +345/2 +1),10)
 $buttonsearch.Size = new-object System.Drawing.Size(20,22)
 $buttonsearch.BackColor = [System.Drawing.Color]::CadetBlue
 $buttonsearch.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
