@@ -243,7 +243,7 @@ $ToolTip.BackColor = [System.Drawing.Color]::LightGoldenrodYellow
 $ToolTip.IsBalloon = $true
 $ToolTip.InitialDelay = 500
 $ToolTip.ReshowDelay = 500
-$ToolTip.SetToolTip($buttonexport, "Export current notes to TXT file.") 
+$ToolTip.SetToolTip($buttonexport, "Export current notes to xml file.") 
 ####TAB 2 CONTENT (NOTE)
 $textboxtitle = New-Object System.Windows.Forms.label
 $textboxtitle.Location = new-object System.Drawing.Point(10,10)
