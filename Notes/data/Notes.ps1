@@ -9,7 +9,7 @@ $ListBoxtags.Items.clear()
 		if ($str -ne $null){$str+=','}
 		$str+="'$_'"
 		}
-	$qry="select tag from Tags where Tag not in ($str) order by tag"
+	$qry="select tag from Tags where Tag not in ({0}) order by tag" -f $str
 	}
 $rs=read-SQLite $database $qry
 $rs|%{[void] $ListBoxtags.Items.Add($_.tag)}
@@ -71,7 +71,7 @@ import-module "$scriptPath\SQliteModule"
 #cargo la hoja de estilos
 . "$scriptPath\css.ps1"
 $Form1 = New-Object System.Windows.Forms.Form
-$Form1.ClientSize = "640, 525"
+$Form1.ClientSize = new-object System.Drawing.Size(680, 525)
 $Form1.text="SistemasWin | Notes"
 $Icon= New-Object system.drawing.icon ("$scriptPath\notes.ico")
 $Form1.Icon = $Icon
@@ -91,7 +91,7 @@ $Form1.Add_Resize({
 	$labelcount.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 +345/2 + 30),13)
 	$ListViewsearch.Size = New-Object System.Drawing.Size(($tabControl1.size.width -30),($tabControl1.size.height -80))
 	$columnB.Width = ($ListViewsearch.Size.width -22)
-	$buttonexport.Location = New-Object System.Drawing.Size(($tabControl1.size.width -20),($tabControl1.size.height -41))
+	$buttonexport.Location = New-Object System.Drawing.Point(($tabControl1.size.width -20),($tabControl1.size.height -41))
 	$textboxnote.Size = new-object System.Drawing.Size(($tabControl1.size.width -30),($tabControl1.size.height -135))
 	$textboxtags.Location = new-object System.Drawing.Point(10,($tabControl1.size.height -95))
 	$textboxtags.Size = new-object System.Drawing.Size(($tabControl1.size.width -30),22)
@@ -116,7 +116,6 @@ $pictureBox = new-object System.Windows.Forms.PictureBox
 $pictureBox.Location = new-object System.Drawing.Point(($Form1.ClientSize.width/2 - 300/2),0)
 $pictureBox.Size = new-object System.Drawing.Size(300,95)
 $pictureBox.TabStop = $false
-#$pictureBox.backcolor=[System.Drawing.Color]::$backgroundcolor
 $pictureBox.image=$logo
 $Form1.Controls.Add($pictureBox)
 
@@ -147,7 +146,6 @@ $tabControl1.Controls.Add($tabPage3)
 $searchoptions="All","Notes","Tags"
 $combosearch=New-Object System.Windows.Forms.ComboBox
 $combosearch.Location = New-Object System.Drawing.Point(($tabControl1.size.width/2 -345/2 -75),10)
-#$combosearch.Location = New-Object System.Drawing.Point(80,10)
 $combosearch.Size = New-Object System.Drawing.Size(75,20) 
 $combosearch.Font = $css_textbox.Bigfont
 $combosearch.Name = "SearchOptions"
@@ -157,7 +155,6 @@ $tabPage1.Controls.Add($combosearch)
 #textbox
 $textboxsearch = New-Object System.Windows.Forms.textbox
 $textboxsearch.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 -345/2),10)
-#$textboxsearch.Location = new-object System.Drawing.Point(155,10)
 $textboxsearch.Size = new-object System.Drawing.Size(345,20)
 $textboxsearch.Font = $css_textbox.Bigfont
 $textboxsearch.borderstyle = 2 #0=sin borde, 1=borde 2=hundido
@@ -169,7 +166,6 @@ $textboxsearch.Add_KeyDown({
 	}
 })
 $buttonsearch = New-Object System.Windows.Forms.Button
-#$buttonsearch.Location = new-object System.Drawing.Point(500,10)
 $buttonsearch.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 +345/2 +1),10)
 $buttonsearch.Size = new-object System.Drawing.Size(20,22)
 $buttonsearch.BackColor = [System.Drawing.Color]::CadetBlue
@@ -190,11 +186,11 @@ $labelcount= New-Object System.Windows.Forms.label
 $labelcount.Location = new-object System.Drawing.Point(($tabControl1.size.width/2 +345/2 + 30),13)
 $labelcount.Size = new-object System.Drawing.Size(65,20)
 $labelcount.Font = $css_textbox.Bigfont
-$labelcount.Forecolor="silver"
+$labelcount.Forecolor=[System.Drawing.Color]::silver
 $tabPage1.controls.add($labelcount)
 
 $ListViewsearch = New-Object System.Windows.Forms.ListView 
-$ListViewsearch.Location = New-Object System.Drawing.Size(10,40) 
+$ListViewsearch.Location = New-Object System.Drawing.point(10,40) 
 $ListViewsearch.Size = New-Object System.Drawing.Size(($tabControl1.size.width -30),($tabControl1.size.height -80))
 $ListViewsearch.MultiSelect = 0
 $ListViewsearch.FullRowSelect = $true
@@ -216,7 +212,7 @@ $ListViewsearch.borderstyle = 2 #0=sin borde, 2=borde 1=hundido
 $val=listarnotas
 $tabPage1.Controls.Add($ListViewsearch)
 $ListViewsearch.add_doubleclick({
-	$qry="select * from notes where id='$($ListViewsearch.SelectedItems[0].SubItems[0].Text)'"
+	$qry="select * from notes where id='{0}'" -f $ListViewsearch.SelectedItems[0].SubItems[0].Text
 	$rs=read-SQLite $database $qry
 	$textboxtitle.text=$rs.title
 	$global:id=$rs.id
@@ -226,7 +222,7 @@ $ListViewsearch.add_doubleclick({
 	
 })
 $buttonexport = New-Object System.Windows.Forms.Button
-$buttonexport.Location = New-Object System.Drawing.Size(($tabControl1.size.width -20),($tabControl1.size.height -41))
+$buttonexport.Location = New-Object System.Drawing.point(($tabControl1.size.width -20),($tabControl1.size.height -41))
 $buttonexport.Size = new-object System.Drawing.Size(10,10)
 $buttonexport.BackColor = [System.Drawing.Color]::Silver
 $buttonexport.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
@@ -234,7 +230,7 @@ $buttonexport.Font = new-object System.Drawing.Font("Webdings",5)
 $buttonexport.text="4"
 $tabPage1.controls.add($buttonexport)
 $buttonexport.Add_Click({
-	$qry="select * from notes where id in ($($global:id_list))"
+	$qry="select * from notes where id in ({0})" -f $global:id_list
 	$rs=read-SQLite $database $qry	
 	$rs|select title,note,tags,datetime|export-clixml "$scriptPath\..\NotesExport.xml"
 })
@@ -308,7 +304,7 @@ $tabPage3.controls.add($textboxaddtag)
 $textboxaddtag.Add_KeyDown({
 	if ($_.KeyCode -eq "Enter" -and $textboxaddtag.text -ne $null) 
     {
-	$qry="insert into tags(tag) values('$($textboxaddtag.text)')"
+	$qry="insert into tags(tag) values('{0}')" -f $textboxaddtag.text
 	Write-SQlite $database $qry
 	$val=listartags
 	$textboxaddtag.text=$null
@@ -341,7 +337,7 @@ $buttondelete.text="Delete"
 $buttondelete.visible=$false
 $tabPage3.controls.add($buttondelete)
 $buttondelete.Add_Click({
-	$qry="delete from notes where id=$editingID"
+	$qry="delete from notes where id={0}" -f $editingID
 	Write-SQlite $database $qry
 	$global:editingID=$null
 	$textboxnewtitle.text=$textboxnewnote.text=$textboxselectedtags.text=$null #limpio los campos
@@ -359,8 +355,8 @@ $tabPage3.controls.add($buttonnew)
 $buttonnew.Add_Click({
 	$textboxnewtitle.text=$textboxnewtitle.text -replace("'","''")
 	$textboxnewnote.text=$textboxnewnote.text -replace("'","''")
-	if ($editingID -eq $null){$qry= "insert into Notes(title,note,tags) values('$($textboxnewtitle.text)','$($textboxnewnote.text)','$($textboxselectedtags.text)')"}
-	else{$qry="update notes set title='$($textboxnewtitle.text)', note='$($textboxnewnote.text)', tags='$($textboxselectedtags.text)' where id=$editingID"}
+	if ($editingID -eq $null){$qry= "insert into Notes(title,note,tags) values('{0}','{1}','{2}')" -f $textboxnewtitle.text,$textboxnewnote.text,$textboxselectedtags.text}
+	else{$qry="update notes set title='{0}', note='{1}', tags='{2}' where id={3}" -f $textboxnewtitle.text,$textboxnewnote.text, $textboxselectedtags.text,$textboxselectedtags.text}
 	Write-SQlite $database $qry
 	
 	$global:editingID=$null
