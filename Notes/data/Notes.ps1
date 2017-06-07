@@ -356,7 +356,7 @@ $buttonnew.Add_Click({
 	$textboxnewtitle.text=$textboxnewtitle.text -replace("'","''")
 	$textboxnewnote.text=$textboxnewnote.text -replace("'","''")
 	if ($editingID -eq $null){$qry= "insert into Notes(title,note,tags) values('{0}','{1}','{2}')" -f $textboxnewtitle.text,$textboxnewnote.text,$textboxselectedtags.text}
-	else{$qry="update notes set title='{0}', note='{1}', tags='{2}' where id={3}" -f $textboxnewtitle.text,$textboxnewnote.text, $textboxselectedtags.text,$textboxselectedtags.text}
+	else{$qry="update notes set title='{0}', note='{1}', tags='{2}' where id={3}" -f $textboxnewtitle.text,$textboxnewnote.text, $textboxselectedtags.text,$editingID}
 	Write-SQlite $database $qry
 	
 	$global:editingID=$null
