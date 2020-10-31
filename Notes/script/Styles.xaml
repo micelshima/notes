@@ -1,0 +1,19 @@
+<ResourceDictionary
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+
+	<SolidColorBrush x:Key="forecolor" Color="Black"/>
+	<SolidColorBrush x:Key="buttonnew" Color="MediumSeaGreen"/>
+	<SolidColorBrush x:Key="fontcolor" Color="White"/>
+	<SolidColorBrush x:Key="buttonclose" Color="Black"/>
+
+	<Style TargetType="ListBoxItem" x:Key="ContainerStyle">
+	  	<Setter Property="Opacity" Value="0.4" />
+	  	<Setter Property="MaxHeight" Value="75" />
+	  	<Style.Triggers>
+	    	<Trigger Property="IsSelected" Value="True">
+	      	<Setter Property="Opacity" Value="1.0" />
+	   	</Trigger>
+		</Style.Triggers>
+	</Style>
+</ResourceDictionary>
