@@ -1,6 +1,9 @@
 notes
 =====
+Notes App written in Powershell (WPF + SQLite) for managing personal notes.
 
-powershell script with GUI and connection to SQLite database for creating notes and snippets.
+All notes are stored in a SQLite database and you can easily find them by any of the fields with the predictive search bar. You can filter search with several words separated by space.
 
-![alt tag](https://3.bp.blogspot.com/-5furKx3SCXQ/VFk2iFCobTI/AAAAAAAABsg/4YStMPVXfBY/s1600/Screenshot%2B-%2B04_11_2014%2B%2C%2B15_08_41.jpg)
+![alt tag](https://1.bp.blogspot.com/-dhruYHFfQGM/X53f5IpIFyI/AAAAAAAACR0/4Rz0qJrht1sbwXpEkRti1rcTDSnG-_7UgCLcBGAsYHQ/s600/Notes%2BV2a.gif)
+
+[More info in SistemasWin.com](https://systemswin.blogspot.com/2020/07/powershell-wpf-database-for-notes-v2.html)
