@@ -1,6 +1,6 @@
 notes
 =====
-Notes App written in Powershell and WPF for managing personal notes with a SQLite database.
+Notes App written in Powershell and WPF for managing personal notes.
 
 All notes are stored in a SQLite database and you can easily find them by any of the fields with the predictive search bar. You can filter search with several words separated by space.
 
