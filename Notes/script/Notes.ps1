@@ -160,6 +160,7 @@ $ButtonAddNew.Add_Click( {
 		$Overlaytitle.text = $null
 		$OverlayDate.text = '{0:dd/MM/yyyy HH:mm:ss}' -f (get-date)
 		$Overlaytags.text = $null
+		$Overlayimportant.ischecked=$false
 		$Overlaynote.text = $null
 		$null = listar-tags
 	})
