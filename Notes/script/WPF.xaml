@@ -1,9 +1,14 @@
 <Controls:MetroWindow
-xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-Title="SistemasWin | Notes App" Name="Window" Height="600" Width="825" WindowStartupLocation="CenterOwner">
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+	xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+	Title="SistemasWin | Notes App" Name="Window" Height="600" Width="825" 
+	BorderThickness="0"
+	GlowBrush="Black"
+	ResizeMode="CanResizeWithGrip"
+	WindowTransitionsEnabled="False"
+	WindowStartupLocation="CenterOwner">
 
 <Window.Resources>
 	<ResourceDictionary>
@@ -76,7 +81,7 @@ Title="SistemasWin | Notes App" Name="Window" Height="600" Width="825" WindowSta
 		</StackPanel>
 			<DataGrid Name="Datagrid" HeadersVisibility="None" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True"
       ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Grid.Row="2"
-      ScrollViewer.HorizontalScrollBarVisibility="Auto">
+      ScrollViewer.HorizontalScrollBarVisibility="Hidden">
         	<DataGrid.Columns>
 			<DataGridTemplateColumn Width="Auto">
                             <DataGridTemplateColumn.CellTemplate>
@@ -123,16 +128,16 @@ Title="SistemasWin | Notes App" Name="Window" Height="600" Width="825" WindowSta
 							<TextBlock Text="{Binding tags}" Grid.Column="1" Grid.Row="1" />
 							<StackPanel Orientation="Vertical" Grid.Row="2" >
 							<TextBlock Text="Note:" FontWeight="Bold" Margin="25,0,5,0"/>
-							<Button x:Name="Edit" ToolTip="Edit" Cursor="Hand" HorizontalContentAlignment="Stretch"
+							<Button x:Name="Edit" ToolTip="Edit" Cursor="Hand" HorizontalContentAlignment="Stretch" Style="{DynamicResource MetroCircleButtonStyle}"
                                  VerticalContentAlignment="Stretch" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Center"
-                                 BorderThickness="0" Background="{x:Null}" Margin="10,10,10,10">
-								 <Border BorderThickness="0" CornerRadius="20,20,20,20" Background="{StaticResource fontcolor}" Width="40" Height="40">
+                                 BorderThickness="0" Background="{StaticResource fontcolor}" Width="40" Height="40" Margin="10,10,2,10">
+								
                                  <Rectangle Width="17" Height="15" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{StaticResource forecolor}">
                                     <Rectangle.OpacityMask>
                                         <VisualBrush  Stretch="Fill" Visual="{StaticResource appbar_edit}"/>
                                     </Rectangle.OpacityMask>
                                  </Rectangle>
-								 </Border>
+								
                              </Button>
 							</StackPanel>
 							<TextBox Text="{Binding note}" Background="{x:Null}" Foreground="{StaticResource fontcolor}" BorderThickness="0" IsReadOnly="True" TextWrapping="Wrap"  MaxHeight="200" VerticalScrollBarVisibility="Visible" Grid.Column="1" Grid.Row="2" Margin="0,0,10,0"/>
@@ -194,15 +199,15 @@ Title="SistemasWin | Notes App" Name="Window" Height="600" Width="825" WindowSta
 							<ListBox x:Name="OverlayListBoxTags" Grid.Column="4" Grid.Row="3"  SelectionMode="Single" Margin="5,0,10,10"/>
 			</Grid>
 			<Grid x:Name="OverlayAddNew" Panel.ZIndex="1" Visibility="Visible" Grid.RowSpan="3" Margin="30,30,30,25">
-			<Button x:Name="ButtonAddNew" ToolTip="Add New Note" VerticalAlignment="Bottom" HorizontalAlignment="Right"
-				Cursor="Hand" HorizontalContentAlignment="Stretch" Background="{x:Null}" VerticalContentAlignment="Stretch" BorderThickness="0" Margin="0,0,0,0">
-				<Border BorderThickness="0" CornerRadius="20,20,20,20" BorderBrush="Black" Background="{StaticResource buttonnew}" Width="40" Height="40">
+			<Button x:Name="ButtonAddNew" ToolTip="Add New Note" VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}"
+				Cursor="Hand" HorizontalContentAlignment="Stretch" Background="{StaticResource buttonnew}" VerticalContentAlignment="Stretch" BorderThickness="0" Width="50" Height="50" Margin="0,0,0,0">
+				
 					<Rectangle Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{StaticResource fontcolor}">
 					<Rectangle.OpacityMask>
                             <VisualBrush  Stretch="Fill" Visual="{StaticResource appbar_add}"/>
 					</Rectangle.OpacityMask>
 					</Rectangle>
-				</Border>
+				
             </Button>
 			</Grid>
 	</Grid>

@@ -59,7 +59,7 @@ function listar-tags() {
 			if ($str -ne $null) { $str += ',' }
 			$str += "'$_'"
 		}
-		$qry = "select tag from Tags where Tag not in ({0}) order by tag" -f $str
+		$qry = "select tag from Tags where Tag not in ({0}) order by tag COLLATE NOCASE" -f $str
 	}
 	$rs = read-SQLite $database $qry
 	$rs | % { [void] $OverlayListBoxTags.Items.Add($_.tag) }
@@ -67,23 +67,23 @@ function listar-tags() {
 }
 function listar-notas() {
 	$qry = "select * from notes order by important desc,datetime desc"
-	$data = @()
+	$data = [System.Collections.ArrayList]@()
 	read-SQLite $database $qry | % {
-		$data += [pscustomobject]@{
+		$data.add([pscustomobject]@{
 			id        = $_.id
 			title     = $_.title
 			note      = $_.note
 			tags      = $_.tags
 			datetime  = $_.datetime.tostring("dd/MM/yyyy HH:mm:ss")
 			important = $_.important
-		}
+		})
 	}
 	$global:lview = [System.Windows.Data.ListCollectionView]$data
 	$Datagrid.itemssource = $lview
 }
 ##main##
 "results" | % { if (!(test-path "$PSScriptRoot\..\$_")) { New-item -ItemType Directory -path "$PSScriptRoot\..\$_" | out-null } }
-import-module "$PSscriptRoot\..\SQliteModule"
+import-module "$PSscriptRoot\..\..\..\_Modules\SQliteModule"
 if (!(test-path "$PSScriptRoot\..\databases")) { New-item -ItemType Directory -path "$PSScriptRoot\..\databases" | out-null }
 # Add shared_assemblies
 Add-Type -assemblyName WindowsBase
@@ -160,8 +160,8 @@ $ButtonAddNew.Add_Click( {
 		$Overlaytitle.text = $null
 		$OverlayDate.text = '{0:dd/MM/yyyy HH:mm:ss}' -f (get-date)
 		$Overlaytags.text = $null
-		$Overlayimportant.ischecked=$false
 		$Overlaynote.text = $null
+		$Overlayimportant.ischecked=$false
 		$null = listar-tags
 	})
 $OverlayNewTag.Add_KeyDown( {
