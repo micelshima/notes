@@ -133,12 +133,12 @@ $ButtonSave.Add_Click( {
 		$Overlaytitle.text = $Overlaytitle.text -replace ("'", "''")
 		$Overlaynote.text = $Overlaynote.text -replace ("'", "''")
 		if ($global:id -eq $null) {
-			if ([bool]$Overlaytitle.text -ne $false -and [bool]$Overlaynote.text -ne $false) {
+			if ([bool]$Overlaytitle.text -ne $false) {
 				$qry = "insert into Notes(title,note,tags,datetime,important) values('{0}','{1}','{2}','{3:yyyy-MM-dd HH:mm:ss}',{4})" -f $Overlaytitle.text, $Overlaynote.text, $Overlaytags.text, (get-date $OverlayDate.text), [int]$overlayimportant.ischecked
-   }
+			}
 		}
 		else {
-			if ([bool]$Overlaytitle.text -ne $false -and [bool]$Overlaynote.text -ne $false) {
+			if ([bool]$Overlaytitle.text -ne $false) {
 				$qry = "update notes set title='{0}', note='{1}', tags='{2}',datetime='{3:yyyy-MM-dd HH:mm:ss}',important={4} where id={5}" -f $Overlaytitle.text, $Overlaynote.text, $Overlaytags.text, (get-date $OverlayDate.text), [int]$overlayimportant.ischecked, $global:id
 			}
 			#if title or note becomes empty I suppose you want to delete the entry
