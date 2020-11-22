@@ -83,7 +83,7 @@ function listar-notas() {
 }
 ##main##
 "results" | % { if (!(test-path "$PSScriptRoot\..\$_")) { New-item -ItemType Directory -path "$PSScriptRoot\..\$_" | out-null } }
-import-module "$PSscriptRoot\..\..\..\_Modules\SQliteModule"
+import-module "$PSscriptRoot\..\SQliteModule"
 if (!(test-path "$PSScriptRoot\..\databases")) { New-item -ItemType Directory -path "$PSScriptRoot\..\databases" | out-null }
 # Add shared_assemblies
 Add-Type -assemblyName WindowsBase
