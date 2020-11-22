@@ -42,13 +42,13 @@ function filter-grid ($text) {
 	$lview.Refresh()
 }
 function listar-databases($databasename) {
-	$ListBoxDatabases.items.clear()
+	$TabControl.items.clear()
 	$databasepath = "$PSscriptroot\..\databases\{0}.s3db" -f $databasename
 	if (!(test-path $databasepath)) { copy-item "$PSscriptroot\template.s3db" $databasepath }
-	get-childitem "$Psscriptroot\..\databases\*.s3db" | select fullname, basename, lastwritetime | sort LastWriteTime -desc | % { [void] $ListBoxDatabases.Items.Add($_.basename) }
-	#$ListBoxDatabases.selectedindex = 1
-	$ListBoxDatabases.selecteditem = $databasename
-	$window.Title = 'SistemasWin | Notes App | {0}' -f [string]$ListBoxDatabases.selecteditem
+	get-childitem "$Psscriptroot\..\databases\*.s3db" | select fullname, basename, lastwritetime | sort LastWriteTime -desc | % { [void] $tabControl.Items.insert(0, $_.basename) }
+	$tabControl.SelectedIndex = 1
+	$tabControl.selecteditem = $databasename
+	$window.Title = 'SistemasWin | Notes App | {0}' -f [string]$tabControl.selecteditem
 	return $databasepath
 }
 function listar-tags() {
@@ -70,13 +70,13 @@ function listar-notas() {
 	$data = [System.Collections.ArrayList]@()
 	read-SQLite $database $qry | % {
 		$data.add([pscustomobject]@{
-			id        = $_.id
-			title     = $_.title
-			note      = $_.note
-			tags      = $_.tags
-			datetime  = $_.datetime.tostring("dd/MM/yyyy HH:mm:ss")
-			important = $_.important
-		})
+				id        = $_.id
+				title     = $_.title
+				note      = $_.note
+				tags      = $_.tags
+				datetime  = $_.datetime.tostring("dd/MM/yyyy HH:mm:ss")
+				important = $_.important
+			})
 	}
 	$global:lview = [System.Windows.Data.ListCollectionView]$data
 	$Datagrid.itemssource = $lview
@@ -102,22 +102,36 @@ $xaml.selectNodes("//*[@*[contains(translate(name(.),'n','N'),'Name')]]") | % {
 $database = listar-databases $database
 $null = listar-notas
 
-$TextboxNewDatabase.Add_KeyDown( {
-		if ($_.Key -eq "Enter") {
-		 $global:database = listar-databases $TextboxNewDatabase.text
-		 $TextboxNewDatabase.text = $null
+$TabControl.Add_SelectionChanged( {
 
-		}
-	})
-$ListBoxDatabases.Add_SelectionChanged( {
-		if ([bool]$ListBoxDatabases.selecteditem) {
-			$global:database = "$PSscriptroot\..\databases\{0}.s3db" -f [string]$ListBoxDatabases.selecteditem
-			$window.Title = 'SistemasWin | Notes App | {0}' -f [string]$ListBoxDatabases.selecteditem
+		if ([bool]$TabControl.selecteditem) {
+			$global:database = "$PSscriptroot\..\databases\{0}.s3db" -f [string]$TabControl.selecteditem
+			$window.Title = 'SistemasWin | Notes App | {0}' -f [string]$TabControl.selecteditem
 			$null = listar-notas
 			filter-grid $TextBoxBuscador.text
 		}
 
 	})
+$ButtonNewDatabase.Add_Click( {
+		switch ($TextboxNewDatabase.visibility) {
+			"Collapsed" { $TextboxNewDatabase.visibility = "Visible"; break }
+			"Visible" {
+				if ($TextboxNewDatabase.text -ne "" ) {
+					$global:database = listar-databases $TextboxNewDatabase.text
+					$TextboxNewDatabase.text = ""
+				}
+				$TextboxNewDatabase.visibility = "Collapsed"
+			}
+		}
+	})
+$TextboxNewDatabase.Add_KeyDown( {
+		if ($_.Key -eq "Enter" -and $TextboxNewDatabase.text -ne "") {
+		 $global:database = listar-databases $TextboxNewDatabase.text
+		 $TextboxNewDatabase.text = ""
+		 $TextboxNewDatabase.visibility = "Collapsed"
+		}
+	})
+
 $ButtonBuscador.Add_Click( {
 		filter-grid $TextBoxBuscador.text
 	})
@@ -161,7 +175,7 @@ $ButtonAddNew.Add_Click( {
 		$OverlayDate.text = '{0:dd/MM/yyyy HH:mm:ss}' -f (get-date)
 		$Overlaytags.text = $null
 		$Overlaynote.text = $null
-		$Overlayimportant.ischecked=$false
+		$Overlayimportant.ischecked = $false
 		$null = listar-tags
 	})
 $OverlayNewTag.Add_KeyDown( {

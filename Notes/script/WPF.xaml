@@ -3,7 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
 	xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-	Title="SistemasWin | Notes App" Name="Window" Height="600" Width="825" 
+	Title="SistemasWin | Notes App" Name="Window" Height="600" Width="825"
 	BorderThickness="0"
 	GlowBrush="Black"
 	ResizeMode="CanResizeWithGrip"
@@ -25,33 +25,15 @@
 </Window.Resources>
 	<Grid Margin="0" ShowGridLines="false" >
 		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="80"/>
+			<RowDefinition Height="40"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
-		<Expander Header="Databases">
-		<Grid ShowGridLines="false" >
-			<Grid.RowDefinitions>
-			<RowDefinition Height="45"/>
-		</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="110"/>
-			<ColumnDefinition Width="*"/>
-		</Grid.ColumnDefinitions>
-		<TextBox x:Name="TextboxNewDatabase" FontSize="25" Grid.Column="0" Margin="5,0,0,0"/>
-		<ListView x:Name="ListBoxDatabases" ItemContainerStyle="{StaticResource ContainerStyle}" FontSize="25" SelectionMode="Single" Grid.Column="1" Margin="5,0,5,0">
-			<ListView.ItemsPanel>
-			<ItemsPanelTemplate>
-				<StackPanel Orientation="Horizontal"></StackPanel>
-			</ItemsPanelTemplate>
-			</ListView.ItemsPanel>
-		</ListView>
-		</Grid>
-		</Expander>
-		<StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Margin="5">
+
+		<StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center" Margin="5">
 		<Rectangle Width="37" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{StaticResource forecolor}">
                 <Rectangle.OpacityMask>
                     <VisualBrush  Stretch="Fill" Visual="{StaticResource appbar_office_onenote}"/>
@@ -79,8 +61,27 @@
             </Rectangle>
         </Button>
 		</StackPanel>
+		<Grid ShowGridLines="false" Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+		<TabControl Name="TabControl" Grid.Column="0" Height="35"/>
+		<Button x:Name="ButtonNewDatabase" ToolTip="Add New Database" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{DynamicResource MetroCircleButtonStyle}"
+				Cursor="Hand" HorizontalContentAlignment="Stretch" Background="{StaticResource fontcolor}" VerticalContentAlignment="Stretch" BorderThickness="0" Width="40" Height="40" Grid.Column="1" Margin="0,0,0,0">
+			<Rectangle Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{StaticResource forecolor}">
+					<Rectangle.OpacityMask>
+                            <VisualBrush  Stretch="Fill" Visual="{StaticResource appbar_add}"/>
+					</Rectangle.OpacityMask>
+					</Rectangle>
+			</Button>
+		<TextBox Name="TextboxNewDatabase" FontSize="16" Height="30" Width="110" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,10,0" Visibility="Collapsed"/>
+
+
+		</Grid>
 			<DataGrid Name="Datagrid" HeadersVisibility="None" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True"
-      ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Grid.Row="2"
+      ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Grid.Row="2" SelectionMode="Single"
       ScrollViewer.HorizontalScrollBarVisibility="Hidden">
         	<DataGrid.Columns>
 			<DataGridTemplateColumn Width="Auto">
@@ -131,13 +132,13 @@
 							<Button x:Name="Edit" ToolTip="Edit" Cursor="Hand" HorizontalContentAlignment="Stretch" Style="{DynamicResource MetroCircleButtonStyle}"
                                  VerticalContentAlignment="Stretch" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Center"
                                  BorderThickness="0" Background="{StaticResource fontcolor}" Width="40" Height="40" Margin="10,10,2,10">
-								
+
                                  <Rectangle Width="17" Height="15" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{StaticResource forecolor}">
                                     <Rectangle.OpacityMask>
                                         <VisualBrush  Stretch="Fill" Visual="{StaticResource appbar_edit}"/>
                                     </Rectangle.OpacityMask>
                                  </Rectangle>
-								
+
                              </Button>
 							</StackPanel>
 							<TextBox Text="{Binding note}" Background="{x:Null}" Foreground="{StaticResource fontcolor}" BorderThickness="0" IsReadOnly="True" TextWrapping="Wrap"  MaxHeight="200" VerticalScrollBarVisibility="Visible" Grid.Column="1" Grid.Row="2" Margin="0,0,10,0"/>
@@ -201,13 +202,13 @@
 			<Grid x:Name="OverlayAddNew" Panel.ZIndex="1" Visibility="Visible" Grid.RowSpan="3" Margin="30,30,30,25">
 			<Button x:Name="ButtonAddNew" ToolTip="Add New Note" VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}"
 				Cursor="Hand" HorizontalContentAlignment="Stretch" Background="{StaticResource buttonnew}" VerticalContentAlignment="Stretch" BorderThickness="0" Width="50" Height="50" Margin="0,0,0,0">
-				
+
 					<Rectangle Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{StaticResource fontcolor}">
 					<Rectangle.OpacityMask>
                             <VisualBrush  Stretch="Fill" Visual="{StaticResource appbar_add}"/>
 					</Rectangle.OpacityMask>
 					</Rectangle>
-				
+
             </Button>
 			</Grid>
 	</Grid>
