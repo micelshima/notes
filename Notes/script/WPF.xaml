@@ -40,7 +40,7 @@
                     <VisualBrush  Stretch="Fill" Visual="{StaticResource appbar_office_onenote}"/>
                 </Rectangle.OpacityMask>
             </Rectangle>
-		<TextBox x:Name = "TextBoxBuscador"  Width= "350" Height="28" Margin="5,5,5,5" BorderThickness="2" BorderBrush="{StaticResource forecolor}" />
+		<TextBox x:Name = "TextBoxBuscador" Controls:TextBoxHelper.ClearTextButton="True" Width= "350" Height="28" Margin="5,5,5,5" BorderThickness="2" BorderBrush="{StaticResource forecolor}" />
 		<Button x:Name="ButtonBuscador"  Background="{StaticResource forecolor}"
         Height="28" Width="28" Cursor="Hand" HorizontalContentAlignment="Stretch"
         VerticalContentAlignment="Stretch" HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -81,7 +81,7 @@
 
 
 		</Grid>
-			<DataGrid Name="Datagrid" HeadersVisibility="None" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True"
+			<DataGrid Name="Datagrid" HeadersVisibility="None" CanUserAddRows="False" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True"
       ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Grid.Row="2" SelectionMode="Single"
       ScrollViewer.HorizontalScrollBarVisibility="Hidden">
         	<DataGrid.Columns>
